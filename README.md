@@ -10,7 +10,7 @@ A simple Eddystone implementation in React Native for both iOS and Android. The 
 
 ## Installation
 
-`$ npm install react-native-eddystone --save`
+`$ npm install @lg2/react-native-eddystone --save`
 
 `$ react-native link react-native-eddystone`
 
