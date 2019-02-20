@@ -1,5 +1,5 @@
 <p align="center">
-  <img src="https://cdn.arstechnica.net/wp-content/uploads/2015/07/2015-07-13_16-46-26-640x201.jpg"  alt="eddystone">
+  <img src="https://cdn.arstechnica.net/wp-content/uploads/2015/07/2015-07-13_16-46-26-640x201.jpg" width="500" alt="eddystone">
 </p>
 
 # react-native-eddystone
