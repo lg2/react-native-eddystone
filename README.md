@@ -92,8 +92,7 @@ There are many events that can be subscribed to using the library's `addListener
 ```js
 {
   id: string,
-  uuid: string,
-  type: number,
+  uid: string,
   txPower: number,
   rssi: number
 }
