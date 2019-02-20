@@ -38,7 +38,7 @@ Alternatively, you can use Cocoapods like so:
 
    ```
    include ':react-native-eddystone'
-   project(':react-native-eddystone').projectDir = new File(rootProject.projectDir, 	'../node_modules/react-native-eddystone/android')
+   project(':react-native-eddystone').projectDir = new File(rootProject.projectDir, '../node_modules/react-native-eddystone/android')
    ```
 
 3. Insert the following lines inside the dependencies block in `android/app/build.gradle`:
@@ -51,7 +51,7 @@ Alternatively, you can use Cocoapods like so:
 This is a very simple example of how to listen to UID broadcasting Eddystone beacons. For more examples, refer to the `examples` folder.
 
 ```javascript
-import Eddystone from "react-native-eddystone";
+import Eddystone from "@lg2/react-native-eddystone";
 
 // bind a callback when detecting a uid frame
 Eddystone.addListener("onUIDFrame", function(beacon) {

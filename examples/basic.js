@@ -1,6 +1,6 @@
 import React, { Component } from "react";
 import { View } from "react-native";
-import Eddystone from "react-native-eddystone";
+import Eddystone from "@lg2/react-native-eddystone";
 
 export default class App extends Component {
   componentDidMount() {
