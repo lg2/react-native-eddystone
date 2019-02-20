@@ -4,7 +4,7 @@
 
 # react-native-eddystone
 
-A simple implementation of the Eddystone protocol for react-native. The library also aims to includes a manager class that allows simple beacon telemetry linking, caching and expiration in the future.
+A simple Eddystone implementation in React Native for both iOS and Android. The library also aims to includes a manager class that allows simple beacon telemetry linking, caching and expiration in the future.
 
 ## Installation
 
