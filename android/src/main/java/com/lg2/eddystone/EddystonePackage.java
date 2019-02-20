@@ -1,3 +1,13 @@
+/**
+ * React Native Eddystone
+ *
+ * A simple Eddystone implementation in React Native for both iOS and Android.
+ *
+ * @package    @lg2/react-native-eddystone
+ * @link       https://github.com/lg2/react-native-eddystone
+ * @copyright  2019 lg2
+ * @license    MIT
+ */
 
 package com.lg2.eddystone;
 
