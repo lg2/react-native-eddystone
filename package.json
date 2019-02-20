@@ -1,0 +1,40 @@
+{
+  "_from": "git+ssh://git@bitbucket.org/lg2fabrique/react-native-eddystone.git",
+  "_id": "react-native-eddystone@0.1.0",
+  "_inBundle": false,
+  "_integrity": "",
+  "_location": "/react-native-eddystone",
+  "_phantomChildren": {},
+  "_requested": {
+    "type": "git",
+    "raw": "git+ssh://git@bitbucket.org:lg2fabrique/react-native-eddystone.git",
+    "rawSpec": "git+ssh://git@bitbucket.org:lg2fabrique/react-native-eddystone.git",
+    "saveSpec": "git+ssh://git@bitbucket.org/lg2fabrique/react-native-eddystone.git",
+    "fetchSpec": "ssh://git@bitbucket.org/lg2fabrique/react-native-eddystone.git",
+    "gitCommittish": null
+  },
+  "_requiredBy": [
+    "#USER",
+    "/"
+  ],
+  "_resolved": "git+ssh://git@bitbucket.org/lg2fabrique/react-native-eddystone.git#f419287726bfc38956a6e7d39d174af58ffa8325",
+  "_spec": "git+ssh://git@bitbucket.org:lg2fabrique/react-native-eddystone.git",
+  "_where": "/Users/ncharbonneau/Repositories/LG2/eddystone",
+  "author": "",
+  "bundleDependencies": false,
+  "deprecated": false,
+  "description": "<p align=\"center\">   <img src=\"https://i.imgur.com/CVNqeKn.png\" width=\"160\" alt=\"eddystone\"> </p>",
+  "keywords": [
+    "react-native"
+  ],
+  "license": "",
+  "main": "index.js",
+  "name": "react-native-eddystone",
+  "peerDependencies": {
+    "react-native": "^0.41.2"
+  },
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "version": "0.1.0"
+}
