@@ -19,13 +19,13 @@ A simple Eddystone implementation in React Native for both iOS and Android. The 
 #### iOS
 
 1. In XCode, in the project navigator, right click `Libraries` ➜ `Add Files to [your project's name]`
-2. Go to `node_modules` ➜ `react-native-eddystone` and add `Eddystone.xcodeproj`
+2. Go to `node_modules` ➜ `@lg2` ➜ `react-native-eddystone` and add `Eddystone.xcodeproj`
 3. In XCode, in the project navigator, select your project. Add `libEddystone.a` to your project's `Build Phases` ➜ `Link Binary With Libraries`
 4. Run your project (`Cmd+R`)
 
 Alternatively, you can use Cocoapods like so:
 
-`pod 'Eddystone', :path => '../node_modules/react-native-eddystone'`
+`pod 'Eddystone', :path => '../node_modules/@lg2/react-native-eddystone'`
 
 #### Android
 
@@ -37,13 +37,13 @@ Alternatively, you can use Cocoapods like so:
 2. Append the following lines to `android/settings.gradle`:
 
    ```
-   include ':react-native-eddystone'
-   project(':react-native-eddystone').projectDir = new File(rootProject.projectDir, '../node_modules/react-native-eddystone/android')
+   include ':@lg2_react-native-eddystone'
+   project(':@lg2_react-native-eddystone').projectDir = new File(rootProject.projectDir, '../node_modules/@lg2/react-native-eddystone/android')
    ```
 
 3. Insert the following lines inside the dependencies block in `android/app/build.gradle`:
    ```
-   compile project(':react-native-eddystone')
+   compile project(':@lg2_react-native-eddystone')
    ```
 
 ## Usage
