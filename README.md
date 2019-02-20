@@ -69,7 +69,7 @@ Eddystone.stopScanning();
 
 | Method         | Arguments                                 | Description                                                               |
 | -------------- | ----------------------------------------- | ------------------------------------------------------------------------- |
-| startScanning  | None                                      | Starts the device's bluetooth manager and looks for Eddystone beacons.    |
+| startScanning  | none                                      | Starts the device's bluetooth manager and looks for Eddystone beacons.    |
 | stopScanning() | none                                      | Stop the device's bluetooth manager from listening for Eddystone beacons. |
 | addListener    | `event: string`<br />`callback: Function` | Registers a callback function to an event.                                |
 
