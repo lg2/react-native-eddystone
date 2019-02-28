@@ -152,8 +152,8 @@
           // dispatch telemetry information
           [self sendEventWithName:@"onTelemetryFrame" body:@{
                                                              @"uid": [peripheral.identifier UUIDString],
-                                                             @"voltage": [NSString stringWithFormat:@"%d", voltage],
-                                                             @"temp": [NSString stringWithFormat:@"%d", temp]
+                                                             @"voltage": [NSNumber numberWithInt: voltage],
+                                                             @"temp": [NSNumber numberWithInt: temp]
                                                              }];
         }
       }
