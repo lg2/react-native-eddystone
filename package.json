@@ -1,6 +1,6 @@
 {
   "name": "@lg2/react-native-eddystone",
-  "version": "0.1.1",
+  "version": "0.1.2",
   "description": "A simple Eddystone implementation in React Native for both iOS and Android.",
   "main": "index.js",
   "directories": {
