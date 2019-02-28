@@ -56,7 +56,7 @@ class Manager extends EventEmitter {
 
       this.beacons.push(beacon);
 
-      this.emit("onBeaconAdd", beacon);
+      this.emit("onBeaconAdded", beacon);
     }
   }
 
@@ -64,7 +64,7 @@ class Manager extends EventEmitter {
     beacon.url = data.url;
     beacon.setExpiration(this.expiration);
 
-    this.emit("onBeaconUpdate", beacon);
+    this.emit("onBeaconUpdated", beacon);
   }
 
   addTelemetry(beacon, data) {
@@ -72,7 +72,7 @@ class Manager extends EventEmitter {
     beacon.voltage = data.voltage;
     beacon.setExpiration(this.expiration);
 
-    this.emit("onBeaconUpdate", beacon);
+    this.emit("onBeaconUpdated", beacon);
   }
 
   onBeaconExpires(beacon) {
