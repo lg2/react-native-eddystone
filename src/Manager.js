@@ -15,6 +15,10 @@ import { startScanning, stopScanning } from "./NativeModule";
 import { addListener, removeListener } from "./NativeEventEmitter";
 
 class Manager extends EventEmitter {
+  /**
+   * Manager class constructor
+   * @param {number} expiration Beacon expiration time in milliseconds
+   */
   constructor(expiration) {
     super();
 
@@ -27,6 +31,10 @@ class Manager extends EventEmitter {
     };
   }
 
+  /**
+   * Starts scanning for beacons
+   * @returns {void}
+   */
   start() {
     addListener("onUIDFrame", this.events.addBeacon);
     addListener("onEIDFrame", this.events.addBeacon);
@@ -36,6 +44,10 @@ class Manager extends EventEmitter {
     startScanning();
   }
 
+  /**
+   * Stops scanning for beacons
+   * @returns {void}
+   */
   stop() {
     removeListener("onUIDFrame", this.events.addBeacon);
     removeListener("onEIDFrame", this.events.addBeacon);
@@ -45,10 +57,20 @@ class Manager extends EventEmitter {
     stopScanning();
   }
 
+  /**
+   * Checks whether or not the manager has cached the beacon uid or not
+   * @param {string} uid The beacon uid to look for
+   * @returns {boolean}
+   */
   has(uid) {
     return this.beacons.filter(beacon => uid === beacon.uid).length > 0;
   }
 
+  /**
+   * Adds a beacon to the manager's cache if it does not exist
+   * @param {BeaconData} data The beacons UID/EID information
+   * @returns {void}
+   */
   addBeacon(data) {
     if (!this.has(data.uid)) {
       const beacon = new Beacon(data, this);
@@ -60,6 +82,12 @@ class Manager extends EventEmitter {
     }
   }
 
+  /**
+   * Adds a URL to an existing beacon in the cache
+   * @param {Beacon} beacon The beacon to add url to
+   * @param {URLData} data The data containing the broadcasted URL
+   * @returns {void}
+   */
   addUrl(beacon, data) {
     beacon.url = data.url;
     beacon.setExpiration(this.expiration);
@@ -67,6 +95,12 @@ class Manager extends EventEmitter {
     this.emit("onBeaconUpdated", beacon);
   }
 
+  /**
+   * Adds telemetry info to an existing beacon in the cache
+   * @param {Beacon} beacon The beacon to add telemetry to
+   * @param {TelemetryData} data The data containing the broadcasted telemetry
+   * @returns {void}
+   */
   addTelemetry(beacon, data) {
     beacon.temp = data.temp;
     beacon.voltage = data.voltage;
@@ -75,6 +109,11 @@ class Manager extends EventEmitter {
     this.emit("onBeaconUpdated", beacon);
   }
 
+  /**
+   * Triggered when a beacon has reached the end of its life
+   * @param {Beacon} beacon The expired beacon
+   * @returns {void}
+   */
   onBeaconExpires(beacon) {
     if (this.has(beacon.uid)) {
       this.beacons.splice(
@@ -86,6 +125,12 @@ class Manager extends EventEmitter {
     }
   }
 
+  /**
+   * Triggered when a beacon message has been received by the bluetooth manager
+   * @param {BeaconData|URLData|TelemetryData} data The data received from the beacon
+   * @param {Function} callback The callback that will handle this data
+   * @returns {void}
+   */
   _onData(data, callback) {
     if (this.has(data.uid)) {
       const index = this.beacons.findIndex(beacon => beacon.uid === data.uid);

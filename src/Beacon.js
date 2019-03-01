@@ -10,6 +10,11 @@
  */
 
 class Beacon {
+  /**
+   * Beacon class constructor
+   * @param {BeaconData} data The beacon data to use for creation
+   * @param {Manager} manager A reference to the beacon's manager
+   */
   constructor(data, manager) {
     this.id = data.id;
     this.uid = data.uid;
@@ -23,11 +28,20 @@ class Beacon {
     this.manager = manager;
   }
 
+  /**
+   * Sets/resets the beacon' expiration timer
+   * @param {number} time The expiration value in milliseconds
+   * @returns {void}
+   */
   setExpiration(time) {
     if (this.timeout) clearTimeout(this.timeout);
     this.timeout = setTimeout(() => this.manager.onBeaconExpires(this), time);
   }
 
+  /**
+   * Gets the beacon' approximative distance from the device
+   * @returns {number} The aprroximative distance in meters
+   */
   getDistance() {
     if (this.rssi == 0) return -1;
 
