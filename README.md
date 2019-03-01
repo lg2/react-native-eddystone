@@ -79,13 +79,13 @@ Eddystone.stopScanning();
 
 There are many events that can be subscribed to using the library's `addListener` method.
 
-| Name             | Parameters           | Description                                                  |
-| ---------------- | -------------------- | ------------------------------------------------------------ |
-| onUIDFrame       | `beacon: BeaconData` | The device received information from a beacon broadcasting UID data. |
-| onEIDFrame       | `beacon: BeaconData` | The device received information from a beacon broadcasting EID data. |
-| onUrlFrame       | `url: string`        | The device received a Url broadcasted by a beacon.           |
-| onTelemetryFrame | `telemetry: string`  | The device received telemetry information from a beacon.     |
-| onStateChanged   | `state: string`      | The device's bluetooth manager state has changed. (iOS only) |
+| Name             | Parameters                 | Description                                                  |
+| ---------------- | -------------------------- | ------------------------------------------------------------ |
+| onUIDFrame       | `beacon: BeaconData`       | The device received information from a beacon broadcasting UID data. |
+| onEIDFrame       | `beacon: BeaconData`       | The device received information from a beacon broadcasting EID data. |
+| onURLFrame       | `url: URLData`             | The device received a Url broadcasted by a beacon.           |
+| onTelemetryFrame | `telemetry: TelemetryData` | The device received telemetry information from a beacon.     |
+| onStateChanged   | `state: string`            | The device's bluetooth manager state has changed. (iOS only) |
 
 ### Data Structures
 

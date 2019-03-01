@@ -131,7 +131,7 @@
       // retrive the URL from the beacon broadcast & dispatch
       NSURL *url = [Beacon getUrl:serviceData];
       [self sendEventWithName:@"onURLFrame" body:@{
-                                                  @"uuid": [peripheral.identifier UUIDString],
+                                                  @"uid": [peripheral.identifier UUIDString],
                                                    @"url": url.absoluteString
                                                    }];
     } else if (frameType == FrameTypeTelemetry) {
@@ -151,9 +151,9 @@
           
           // dispatch telemetry information
           [self sendEventWithName:@"onTelemetryFrame" body:@{
-                                                             @"uuid": [peripheral.identifier UUIDString],
-                                                             @"voltage": [NSString stringWithFormat:@"%d", voltage],
-                                                             @"temp": [NSString stringWithFormat:@"%d", temp]
+                                                             @"uid": [peripheral.identifier UUIDString],
+                                                             @"voltage": [NSNumber numberWithInt: voltage],
+                                                             @"temp": [NSNumber numberWithInt: temp]
                                                              }];
         }
       }
