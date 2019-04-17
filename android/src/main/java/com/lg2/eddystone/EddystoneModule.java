@@ -230,6 +230,8 @@ public class EddystoneModule extends ReactContextBaseJavaModule {
         params.putInt("txPower", serviceData[1]);
         params.putInt("rssi", result.getRssi());
 
+        params.putString("byte", "["+serviceData[14]+","+serviceData[15]+","+serviceData[16]+","+serviceData[17]+"]");
+
         // dispatch event
         emit(event, params);
       } else if (frameType == FRAME_TYPE_URL) {
