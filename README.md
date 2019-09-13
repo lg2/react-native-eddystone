@@ -14,7 +14,7 @@ A simple Eddystone™ implementation in React Native for both iOS and Android. T
 
 `$ react-native link @lg2/react-native-eddystone`
 
-### Manual installation
+### Manual installation (React Native < 0.60)
 
 #### iOS
 
@@ -29,7 +29,7 @@ Alternatively, you can use Cocoapods like so:
 
 #### Android
 
-1. Open up `android/app/src/main/java/[...]/MainActivity.java`
+1. Open up `android/app/src/main/java/[...]/MainApplication.java`
 
     - Add `import com.lg2.eddystone;` to the imports at the top of the file
     - Add `new EddystonePackage()` to the list returned by the `getPackages()` method
@@ -43,7 +43,7 @@ Alternatively, you can use Cocoapods like so:
 
 3. Insert the following lines inside the dependencies block in `android/app/build.gradle`:
    ```
-   compile project(':@lg2_react-native-eddystone')
+   implementation project(':@lg2_react-native-eddystone')
    ```
 
 ## Usage
