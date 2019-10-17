@@ -1,6 +1,6 @@
 {
   "name": "@lg2/react-native-eddystone",
-  "version": "0.1.2",
+  "version": "0.1.3",
   "description": "A simple Eddystone implementation in React Native for both iOS and Android.",
   "main": "src/index.js",
   "directories": {
@@ -13,11 +13,7 @@
     "type": "git",
     "url": "git+https://github.com/lg2/react-native-eddystone.git"
   },
-  "keywords": [
-    "react",
-    "native",
-    "eddystone"
-  ],
+  "keywords": ["react", "native", "eddystone"],
   "author": "Nicholas Charbonneau <nicholas.charbonneau@lg2.com>",
   "license": "MIT",
   "bugs": {
