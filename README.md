@@ -27,7 +27,7 @@ If your React Native version is below 0.60
 
 Alternatively, you can use Cocoapods like so:
 
-`pod 'Eddystone', :path => '../node_modules/@lg2/react-native-eddystone'`
+`pod 'Eddystone', :path => '../node_modules/@lg2/react-native-eddystone/ios'`
 
 #### Android
 
