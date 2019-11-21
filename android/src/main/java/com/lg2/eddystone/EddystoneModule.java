@@ -237,7 +237,7 @@ public class EddystoneModule extends ReactContextBaseJavaModule {
 
         // build the url from the frame's bytes
         String url = getURLScheme(serviceData[2]);
-        for (int i = 3; i < 17; i++) {
+        for (int i = 3; i < 17 + 3; i++) {
           if (serviceData.length <= i) {
             break;
           }
