@@ -18,6 +18,7 @@ import com.facebook.react.bridge.WritableMap;
 import com.facebook.react.bridge.Arguments;
 import com.facebook.react.modules.core.DeviceEventManagerModule.RCTDeviceEventEmitter;
 
+import android.content.*;
 import android.bluetooth.*;
 import android.bluetooth.le.*;
 import android.os.ParcelUuid;
@@ -58,7 +59,7 @@ public class EddystoneModule extends ReactContextBaseJavaModule {
 
   /**
    * EddystoneModule class constructor
-   * 
+   *
    * @param {ReactApplicationContext} reactContext React native application
    *        context
    * @constructor
@@ -71,7 +72,7 @@ public class EddystoneModule extends ReactContextBaseJavaModule {
 
   /**
    * Returns the name of the module
-   * 
+   *
    * @returns {String} The name of the module
    * @public
    */
@@ -82,7 +83,7 @@ public class EddystoneModule extends ReactContextBaseJavaModule {
 
   /**
    * Dispatches an event to the javascript thread
-   * 
+   *
    * @param {String} event The name of the dispatched event
    * @param {Object} params The parameters related to that event
    * @returns {void}
@@ -94,7 +95,7 @@ public class EddystoneModule extends ReactContextBaseJavaModule {
 
   /**
    * Returns a URL scheme based on a URL Frame hexChar
-   * 
+   *
    * @param {byte} The hexChar to analyse for a scheme
    * @returns {String} The URL scheme found
    * @public
@@ -116,7 +117,7 @@ public class EddystoneModule extends ReactContextBaseJavaModule {
 
   /**
    * Returns an encoded string or URL suffix based on a URL frame hexChar
-   * 
+   *
    * @param {byte} hexChar The hexChar to analyse for a scheme
    * @returns {String} The encoded string or URL suffix found
    * @public
@@ -161,7 +162,7 @@ public class EddystoneModule extends ReactContextBaseJavaModule {
   ScanCallback scanCallback = new ScanCallback() {
     /**
      * Triggered when a device is scanned
-     * 
+     *
      * @param {int} callbackType The type of callback triggered
      * @param {ScanResult} result The device result object
      * @returns {void}
@@ -174,7 +175,7 @@ public class EddystoneModule extends ReactContextBaseJavaModule {
 
     /**
      * Triggered when many devices were scanned
-     * 
+     *
      * @param {List<ScanResult>} results The devices results objects
      * @returns {void}
      * @public
@@ -188,7 +189,7 @@ public class EddystoneModule extends ReactContextBaseJavaModule {
 
     /**
      * Handles a single device's results
-     * 
+     *
      * @param {ScanResult} result The device's result object
      * @returns {void}
      * @public
@@ -272,7 +273,7 @@ public class EddystoneModule extends ReactContextBaseJavaModule {
 
   /**
    * Starts scanning for Eddystone beacons
-   * 
+   *
    * @returns {void}
    * @public
    */
@@ -288,6 +289,11 @@ public class EddystoneModule extends ReactContextBaseJavaModule {
 
     ScanSettings settings = new ScanSettings.Builder().setScanMode(ScanSettings.SCAN_MODE_LOW_LATENCY).build();
 
+    if (!bluetoothAdapter.isEnabled()) {
+      Intent enableBtIntent = new Intent(BluetoothAdapter.ACTION_REQUEST_ENABLE);
+      getCurrentActivity().startActivityForResult(enableBtIntent, 8123);
+    }
+
     // start scanning
     scanner = bluetoothAdapter.getBluetoothLeScanner();
     scanner.startScan(filters, settings, scanCallback);
@@ -295,7 +301,7 @@ public class EddystoneModule extends ReactContextBaseJavaModule {
 
   /**
    * Stops scanning for Eddystone beacons
-   * 
+   *
    * @returns {void}
    * @public
    */
