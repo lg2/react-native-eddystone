@@ -18,6 +18,7 @@ import com.facebook.react.bridge.WritableMap;
 import com.facebook.react.bridge.Arguments;
 import com.facebook.react.modules.core.DeviceEventManagerModule.RCTDeviceEventEmitter;
 
+import android.Manifest;
 import android.content.*;
 import android.bluetooth.*;
 import android.bluetooth.le.*;
@@ -288,6 +289,16 @@ public class EddystoneModule extends ReactContextBaseJavaModule {
     filters.add(configurationFilter);
 
     ScanSettings settings = new ScanSettings.Builder().setScanMode(ScanSettings.SCAN_MODE_LOW_LATENCY).build();
+
+    getCurrentActivity().requestPermissions(
+      new String[]{Manifest.permission.ACCESS_COARSE_LOCATION},
+      1
+    );
+
+    getCurrentActivity().requestPermissions(
+      new String[]{Manifest.permission.ACCESS_FINE_LOCATION},
+      1
+    );
 
     if (!bluetoothAdapter.isEnabled()) {
       Intent enableBtIntent = new Intent(BluetoothAdapter.ACTION_REQUEST_ENABLE);
