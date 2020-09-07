@@ -211,7 +211,7 @@ public class EddystoneModule extends ReactContextBaseJavaModule {
       // handle all possible frame types
       byte frameType = serviceData[0];
       if (frameType == FRAME_TYPE_UID || frameType == FRAME_TYPE_EID) {
-        int length = 16;
+        int length = 18;
         String event = "onUIDFrame";
 
         if (frameType == FRAME_TYPE_EID) {
