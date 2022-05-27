@@ -12,6 +12,6 @@
 import { NativeModules } from "react-native";
 
 const { Eddystone } = NativeModules;
-const { startScanning, stopScanning } = Eddystone;
+const { startScanning, stopScanning, startService, stopService } = Eddystone;
 
-export { startScanning, stopScanning };
+export { startScanning, stopScanning, startService, stopService };

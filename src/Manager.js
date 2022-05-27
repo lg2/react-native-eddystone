@@ -11,7 +11,7 @@
 
 import Beacon from "./Beacon";
 import EventEmitter from "eventemitter3";
-import { startScanning, stopScanning } from "./NativeModule";
+import { startScanning, stopScanning, startService, stopService } from "./NativeModule";
 import { addListener, removeListener } from "./NativeEventEmitter";
 
 class Manager extends EventEmitter {
@@ -42,6 +42,7 @@ class Manager extends EventEmitter {
     addListener("onTelemetryFrame", this.events.addTelemetry);
 
     startScanning();
+    startService();
   }
 
   /**
@@ -55,6 +56,7 @@ class Manager extends EventEmitter {
     removeListener("onTelemetryFrame", this.events.addTelemetry);
 
     stopScanning();
+    stopService();
   }
 
   /**

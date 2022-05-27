@@ -18,14 +18,16 @@ import com.facebook.react.bridge.WritableMap;
 import com.facebook.react.bridge.Arguments;
 import com.facebook.react.modules.core.DeviceEventManagerModule.RCTDeviceEventEmitter;
 
-import android.Manifest;
 import android.content.*;
 import android.bluetooth.*;
 import android.bluetooth.le.*;
 import android.os.ParcelUuid;
+import android.content.Context;
 
 import java.util.List;
 import java.util.ArrayList;
+
+import com.facebook.react.HeadlessJsTaskService;
 
 public class EddystoneModule extends ReactContextBaseJavaModule {
   /** @property {ReactApplicationContext} The react app context */
@@ -91,6 +93,12 @@ public class EddystoneModule extends ReactContextBaseJavaModule {
    * @public
    */
   private void emit(String event, Object params) {
+    if(event == "onUIDFrame" && params.toString().contains("ffffffff")) {
+      Context context = reactContext.getApplicationContext();
+        Intent myIntent = new Intent(context, EddystoneEventService.class);
+        context.startService(myIntent);
+        HeadlessJsTaskService.acquireWakeLockNow(context);
+    }
     reactContext.getJSModule(RCTDeviceEventEmitter.class).emit(event, params);
   }
 
@@ -290,16 +298,6 @@ public class EddystoneModule extends ReactContextBaseJavaModule {
 
     ScanSettings settings = new ScanSettings.Builder().setScanMode(ScanSettings.SCAN_MODE_LOW_LATENCY).build();
 
-    getCurrentActivity().requestPermissions(
-      new String[]{Manifest.permission.ACCESS_COARSE_LOCATION},
-      1
-    );
-
-    getCurrentActivity().requestPermissions(
-      new String[]{Manifest.permission.ACCESS_FINE_LOCATION},
-      1
-    );
-
     if (!bluetoothAdapter.isEnabled()) {
       Intent enableBtIntent = new Intent(BluetoothAdapter.ACTION_REQUEST_ENABLE);
       getCurrentActivity().startActivityForResult(enableBtIntent, 8123);
@@ -320,5 +318,15 @@ public class EddystoneModule extends ReactContextBaseJavaModule {
   public void stopScanning() {
     scanner.stopScan(scanCallback);
     scanner = null;
+  }
+
+  @ReactMethod
+  public void startService() {
+    this.reactContext.startService(new Intent(this.reactContext, EddystoneService.class));
+  }
+
+  @ReactMethod
+  public void stopService() {
+    this.reactContext.stopService(new Intent(this.reactContext, EddystoneService.class));
   }
 }
