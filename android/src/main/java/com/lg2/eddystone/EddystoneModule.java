@@ -19,13 +19,12 @@ import com.facebook.react.bridge.WritableMap;
 import com.facebook.react.bridge.Arguments;
 import com.facebook.react.modules.core.DeviceEventManagerModule.RCTDeviceEventEmitter;
 
+import android.Manifest;
 import android.content.*;
 import android.bluetooth.*;
 import android.bluetooth.le.*;
 import android.os.ParcelUuid;
 import android.content.Context;
-import android.os.Build;
-import android.util.Log;
 
 import java.util.List;
 import java.util.ArrayList;

@@ -10,14 +10,12 @@
  */
 
 import Manager from "./Manager";
-import { startScanning, stopScanning, startService, stopService } from "./NativeModule.js";
+import { startScanning, stopScanning } from "./NativeModule.js";
 import { addListener, removeListener } from "./NativeEventEmitter";
 
 export default {
   startScanning,
   stopScanning,
-  startService,
-  stopService,
   addListener,
   removeListener,
   Manager
