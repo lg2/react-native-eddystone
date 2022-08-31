@@ -11,7 +11,6 @@
 
 package com.lg2.eddystone;
 
-import com.facebook.react.bridge.LifecycleEventListener;
 import com.facebook.react.bridge.ReactApplicationContext;
 import com.facebook.react.bridge.ReactContextBaseJavaModule;
 import com.facebook.react.bridge.ReactMethod;
@@ -19,19 +18,15 @@ import com.facebook.react.bridge.WritableMap;
 import com.facebook.react.bridge.Arguments;
 import com.facebook.react.modules.core.DeviceEventManagerModule.RCTDeviceEventEmitter;
 
-import android.Manifest;
 import android.content.*;
 import android.bluetooth.*;
 import android.bluetooth.le.*;
 import android.os.ParcelUuid;
-import android.content.Context;
 
 import java.util.List;
 import java.util.ArrayList;
 
-import com.facebook.react.HeadlessJsTaskService;
-
-public class EddystoneModule extends ReactContextBaseJavaModule implements LifecycleEventListener{
+public class EddystoneModule extends ReactContextBaseJavaModule {
   /** @property {ReactApplicationContext} The react app context */
   private final ReactApplicationContext reactContext;
 
@@ -62,8 +57,6 @@ public class EddystoneModule extends ReactContextBaseJavaModule implements Lifec
   /** @property byte Empty frame type byte identifier */
   public static final byte FRAME_TYPE_EMPTY = 0x40;
 
-  public boolean isClosed = false;
-
   /**
    * EddystoneModule class constructor
    *
@@ -74,17 +67,8 @@ public class EddystoneModule extends ReactContextBaseJavaModule implements Lifec
   public EddystoneModule(ReactApplicationContext reactContext) {
     super(reactContext);
     this.reactContext = reactContext;
-    reactContext.addLifecycleEventListener(this);
     bluetoothAdapter = BluetoothAdapter.getDefaultAdapter();
   }
-
-   public boolean isClosed() {
-        return isClosed;
-    }
-
-    public void setIsClosed(boolean closed) {
-        isClosed = closed;
-    }
 
   /**
    * Returns the name of the module
@@ -107,15 +91,6 @@ public class EddystoneModule extends ReactContextBaseJavaModule implements Lifec
    */
   private void emit(String event, Object params) {
     reactContext.getJSModule(RCTDeviceEventEmitter.class).emit(event, params);
-  }
-
-  private void emitHeadlessEvent(String event, Object params) {
-    if(isClosed() && event == "onUIDFrame" && params.toString().contains("ffffffff")) {
-      Context context = reactContext.getApplicationContext();
-      Intent myIntent = new Intent(context, EddystoneEventService.class);
-      context.startService(myIntent);
-      HeadlessJsTaskService.acquireWakeLockNow(context);
-    }
   }
 
   /**
@@ -227,6 +202,11 @@ public class EddystoneModule extends ReactContextBaseJavaModule implements Lifec
       if (serviceData == null || serviceData.length == 0) {
         serviceData = result.getScanRecord().getServiceData(CONFIGURATION_UUID);
 
+        WritableMap newParams = Arguments.createMap();
+        newParams.putString("error", "Connecting beacon");
+
+        emit("onUIDFrame", newParams);
+
         if (serviceData == null) {
           return;
         }
@@ -257,11 +237,7 @@ public class EddystoneModule extends ReactContextBaseJavaModule implements Lifec
         params.putInt("rssi", result.getRssi());
 
         // dispatch event
-        if (isClosed()){
-          emitHeadlessEvent(event, params);
-        } else {
-          emit(event, params);
-        }
+        emit(event, params);
       } else if (frameType == FRAME_TYPE_URL) {
 
         // build the url from the frame's bytes
@@ -300,21 +276,6 @@ public class EddystoneModule extends ReactContextBaseJavaModule implements Lifec
     }
   };
 
-  @Override
-  public void onHostResume() {
-      this.setIsClosed(false);
-  }
-
-  @Override
-  public void onHostPause() {
-      this.setIsClosed(false);
-  }
-
-  @Override
-  public void onHostDestroy() {
-      this.setIsClosed(true);
-  }
-
   /**
    * Starts scanning for Eddystone beacons
    *
@@ -332,16 +293,6 @@ public class EddystoneModule extends ReactContextBaseJavaModule implements Lifec
     filters.add(configurationFilter);
 
     ScanSettings settings = new ScanSettings.Builder().setScanMode(ScanSettings.SCAN_MODE_LOW_LATENCY).build();
-
-    getCurrentActivity().requestPermissions(
-      new String[]{Manifest.permission.ACCESS_COARSE_LOCATION},
-      1
-    );
-
-    getCurrentActivity().requestPermissions(
-      new String[]{Manifest.permission.ACCESS_FINE_LOCATION},
-      1
-    );
 
     if (!bluetoothAdapter.isEnabled()) {
       Intent enableBtIntent = new Intent(BluetoothAdapter.ACTION_REQUEST_ENABLE);
@@ -361,7 +312,9 @@ public class EddystoneModule extends ReactContextBaseJavaModule implements Lifec
    */
   @ReactMethod
   public void stopScanning() {
-    scanner.stopScan(scanCallback);
-    scanner = null;
+    if(scanner != null) {
+      scanner.stopScan(scanCallback);
+      scanner = null;
+    } 
   }
 }
