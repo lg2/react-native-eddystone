@@ -203,7 +203,7 @@ public class EddystoneModule extends ReactContextBaseJavaModule {
         serviceData = result.getScanRecord().getServiceData(CONFIGURATION_UUID);
 
         WritableMap newParams = Arguments.createMap();
-        newParams.putString("onUIDFrame", "Connecting beacon");
+        newParams.putString("error", "Connecting beacon");
 
         emit("onUIDFrame", newParams);
 
