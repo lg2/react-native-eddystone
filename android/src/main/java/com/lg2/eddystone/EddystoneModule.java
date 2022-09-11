@@ -18,7 +18,6 @@ import com.facebook.react.bridge.WritableMap;
 import com.facebook.react.bridge.Arguments;
 import com.facebook.react.modules.core.DeviceEventManagerModule.RCTDeviceEventEmitter;
 
-import android.Manifest;
 import android.content.*;
 import android.bluetooth.*;
 import android.bluetooth.le.*;
@@ -203,6 +202,11 @@ public class EddystoneModule extends ReactContextBaseJavaModule {
       if (serviceData == null || serviceData.length == 0) {
         serviceData = result.getScanRecord().getServiceData(CONFIGURATION_UUID);
 
+        WritableMap newParams = Arguments.createMap();
+        newParams.putString("error", "Connecting beacon");
+
+        emit("onUIDFrame", newParams);
+
         if (serviceData == null) {
           return;
         }
@@ -290,16 +294,6 @@ public class EddystoneModule extends ReactContextBaseJavaModule {
 
     ScanSettings settings = new ScanSettings.Builder().setScanMode(ScanSettings.SCAN_MODE_LOW_LATENCY).build();
 
-    getCurrentActivity().requestPermissions(
-      new String[]{Manifest.permission.ACCESS_COARSE_LOCATION},
-      1
-    );
-
-    getCurrentActivity().requestPermissions(
-      new String[]{Manifest.permission.ACCESS_FINE_LOCATION},
-      1
-    );
-
     if (!bluetoothAdapter.isEnabled()) {
       Intent enableBtIntent = new Intent(BluetoothAdapter.ACTION_REQUEST_ENABLE);
       getCurrentActivity().startActivityForResult(enableBtIntent, 8123);
@@ -318,7 +312,9 @@ public class EddystoneModule extends ReactContextBaseJavaModule {
    */
   @ReactMethod
   public void stopScanning() {
-    scanner.stopScan(scanCallback);
-    scanner = null;
+    if(scanner != null) {
+      scanner.stopScan(scanCallback);
+      scanner = null;
+    } 
   }
 }
