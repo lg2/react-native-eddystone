@@ -14,12 +14,8 @@ import { NativeModules, NativeEventEmitter } from "react-native";
 const { Eddystone } = NativeModules;
 const EddystoneEventEmitter = new NativeEventEmitter(Eddystone);
 
-const addListener = EddystoneEventEmitter.addListener.bind(
-  EddystoneEventEmitter
-);
+const addListener = EddystoneEventEmitter.addListener;
 
-const removeListener = EddystoneEventEmitter.removeListener.bind(
-  EddystoneEventEmitter
-);
+const removeListener = EddystoneEventEmitter.removeListener;
 
 export { addListener, removeListener };
